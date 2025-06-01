@@ -34,6 +34,7 @@ import {
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { doctorsTable } from "@/db/schema";
+import { capitalizeDay } from "@/helpers/capitalizeDay";
 import { formatCurrencyInCents } from "@/helpers/currency";
 
 import { getAvailability } from "../_helpers/availability";
@@ -69,29 +70,29 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center gap-2">
-          <Avatar className="h-10 w-10">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-18 w-18">
             <AvatarFallback>{doctorInitials}</AvatarFallback>
           </Avatar>
-          <div>
-            <h3 className="text-sm font-medium">{doctor.name}</h3>
+          <div className="flex flex-col gap-1.5">
+            <h3 className="text-sm font-medium text-[#0E0A2F]">{doctor.name}</h3>
             <p className="text-muted-foreground text-sm">{doctor.specialty}</p>
           </div>
         </div>
       </CardHeader>
       <Separator />
       <CardContent className="flex flex-col gap-2">
-        <Badge variant="outline">
-          <CalendarIcon className="mr-1" />
-          {availability.from.format("dddd")} a {availability.to.format("dddd")}
+        <Badge>
+          <CalendarIcon />
+          {capitalizeDay(availability.from)} a {capitalizeDay(availability.to)}
         </Badge>
-        <Badge variant="outline">
-          <ClockIcon className="mr-1" />
+        <Badge>
+          <ClockIcon />
           {availability.from.format("HH:mm")} as{" "}
           {availability.to.format("HH:mm")}
         </Badge>
-        <Badge variant="outline">
-          <DollarSignIcon className="mr-1" />
+        <Badge>
+          <DollarSignIcon />
           {formatCurrencyInCents(doctor.appointmentPriceInCents)}
         </Badge>
       </CardContent>
