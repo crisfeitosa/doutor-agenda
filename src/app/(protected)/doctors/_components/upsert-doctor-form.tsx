@@ -169,7 +169,7 @@ const UpsertDoctorForm = ({ onSuccess }: UpsertDoctorFormProps) => {
                   allowLeadingZeros={false}
                   thousandSeparator="."
                   customInput={Input}
-                  prefix="R$"
+                  prefix="R$ "
                 />
                 <FormMessage />
               </FormItem>

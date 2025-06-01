@@ -1,8 +1,7 @@
-import { Plus } from "lucide-react";
+import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
 import {
   PageActions,
   PageContainer,
@@ -12,7 +11,12 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+import { db } from "@/db";
+import { doctorsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
+
+import AddDoctorButton from "./_components/add-doctor-button";
+import DoctorCard from "./_components/doctor-card";
 
 const DoctorsPage = async () => {
   const session = await auth.api.getSession({
@@ -23,10 +27,13 @@ const DoctorsPage = async () => {
     redirect("/authentication");
   }
 
-  console.log(session.user.clinic);
   if (!session.user.clinic) {
     redirect("/clinic-form");
   }
+
+  const doctors = await db.query.doctorsTable.findMany({
+    where: eq(doctorsTable.clinicId, session.user.clinic.id),
+  });
 
   return (
     <PageContainer>
@@ -36,14 +43,15 @@ const DoctorsPage = async () => {
           <PageDescription>Gerencie os médicos da sua clínica</PageDescription>
         </PageHeaderContent>
         <PageActions>
-          <Button>
-            <Plus />
-            Adicionar médico
-          </Button>
+          <AddDoctorButton />
         </PageActions>
       </PageHeader>
       <PageContent>
-        <h1>Médicos</h1>
+        <div className="grid grid-cols-3 gap-6">
+          {doctors.map((doctor) => (
+            <DoctorCard key={doctor.id} doctor={doctor} />
+          ))}
+        </div>
       </PageContent>
     </PageContainer>
   );
