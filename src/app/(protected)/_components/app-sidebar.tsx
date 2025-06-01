@@ -70,8 +70,6 @@ export function AppSidebar() {
     });
   };
 
-  console.log(session.data?.user.image);
-
   return (
     <Sidebar>
       <SidebarHeader className="border-b p-4">
