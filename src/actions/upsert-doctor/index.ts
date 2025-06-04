@@ -17,7 +17,7 @@ dayjs.extend(utc);
 export const upsertDoctor = actionClient
   .schema(upsertDoctorSchema)
   .action(async ({ parsedInput }) => {
-    const availableFromTime = parsedInput.availableFromTime; // 15:30:00Add commentMore actions
+    const availableFromTime = parsedInput.availableFromTime; // 15:30:00
     const availableToTime = parsedInput.availableToTime; // 16:00:00
 
     const availableFromTimeUTC = dayjs()
