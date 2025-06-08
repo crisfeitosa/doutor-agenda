@@ -2,6 +2,7 @@
 
 import {
   CalendarDays,
+  Gem,
   LayoutDashboard,
   LogOut,
   Stethoscope,
@@ -11,7 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -69,7 +70,7 @@ export function AppSidebar() {
       },
     });
   };
-
+  
   return (
     <Sidebar>
       <SidebarHeader className="border-b p-4">
@@ -93,6 +94,24 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Outros</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === "/subscription"}
+                >
+                  <Link href="/subscription">
+                    <Gem />
+                    <span>Assinatura</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
@@ -101,15 +120,7 @@ export function AppSidebar() {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton size="lg">
                   <Avatar>
-                    <AvatarImage src={session.data?.user?.image ?? ''} />
-                    <AvatarFallback>
-                      {session.data?.user?.name
-                        ?.split(' ')
-                        .filter(Boolean)
-                        .slice(0, 2)
-                        .map((n) => n.charAt(0).toUpperCase())
-                        .join('')}
-                    </AvatarFallback>
+                    <AvatarFallback>F</AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="text-sm">
